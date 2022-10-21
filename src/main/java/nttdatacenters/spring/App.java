@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import nttdatacenters.spring.Entities.Client;
 import nttdatacenters.spring.Repository.ClientRepository;
-import nttdatacenters.spring.Service.ClientService;
 
 @SpringBootApplication
 public class App implements CommandLineRunner {
@@ -24,8 +23,9 @@ public class App implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
 
+		//CREACIÓN DE OBJETOS CLIENTE POR DEFECTO PARA CONSUMIR API RÁPIDAMENTE 
+		
 		// CREAMOS UN OBJETO CLIENTE
 		Client cristian = Client.builder().name("Cristian").lastname("Gonzalez").dni("47343243C")
 				.dateBirth(LocalDate.of(1991, 10, 30)).build();
