@@ -1,0 +1,32 @@
+<section class="content-header" th:replace="component/header.html"></section>
+
+<body>
+	<h1>Escoge opción:</h1>
+	
+	<ul>
+		<li><a href="./clientes">Ver todos los clientes</a></p></li>
+		<li><a href="./clientes/create">Crear cliente</a></p></li>
+		<li><a href="./clientes/info">Consultar cliente</a></p></li>
+	</ul>
+</body>
+
+
+<script>
+	console.log("Hola");
+
+	async function request() {
+		// always try using const rather than let
+		const response = await fetch("http://localhost:8080/api/clients");
+
+		if (response.ok) {
+			const json = response.json();
+			console.log(json);
+		} else {
+			console.log("HTTP response not ok");
+		}
+	}
+	
+	request();
+</script>
+
+<section class="content-footer" th:replace="component/footer.html"></section>
