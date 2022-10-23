@@ -44,5 +44,5 @@ Ejercicio T4/T5 Spring
 - `Opción 6 - Eliminar todos`: Obtener todos los clientes.
 
 <h2 align="center">⚠️ Las distintas llamadas a los endpoints registrarán logs ⚠️</h2>
-<h2 align="center">⚠️ No he sabido como ubicar una clase Service en todo esto ⚠️</h2>
+<h2 align="center">⚠️ No he sabido como ubicar una clase Service en todo esto, con DTO tendría más sentido ⚠️</h2>
 
