@@ -30,15 +30,19 @@ public class ClientControllerRest {
 	@Autowired
 	private ClientRepository clientRepository;
 
-    private final Logger log = LoggerFactory.getLogger(ClientControllerRest.class);
+	private final Logger log = LoggerFactory.getLogger(ClientControllerRest.class);
 
-    
 	// OBTENER TODOS LOS LAPTOS
-    @CrossOrigin
+	@CrossOrigin
 	@ApiOperation("Obtener todos los clientes")
 	@GetMapping("/api/clients")
-	public List<Client> findAll() {
-		return clientRepository.findAll();
+	public ResponseEntity<List<Client>> findAll() {
+
+		if (clientRepository.findAll().size() > 0) {
+			List<Client> listaClientes = clientRepository.findAll();
+			return ResponseEntity.ok(listaClientes);
+		}
+		return ResponseEntity.noContent().build();
 	}
 
 	// OBTENER CLIENTE POR ID
@@ -64,8 +68,8 @@ public class ClientControllerRest {
 	public ResponseEntity<Client> create(@RequestBody Client client, @RequestHeader HttpHeaders headers) {
 
 		log.info("[ClientControllerRest - create] Crear cliente" + client.toString());
-		
-		if (client.getId() != null || client.getDni() == null || client.getDni().length()!=9) {
+
+		if (client.getId() != null || client.getDni() == null || client.getDni().length() != 9 || clientRepository.existsByDni(client.getDni())) {
 			return ResponseEntity.badRequest().build();
 		}
 

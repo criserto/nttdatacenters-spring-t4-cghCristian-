@@ -14,7 +14,7 @@
 			</div>
 			<div class="mb-3">
 				<label for="datebirth" class="form-label">Fecha de nacimiento</label>
-				<input type="text" name="dateBirth" class="form-control" id="datebirth">
+				<input type="date" name="dateBirth" class="form-control" id="datebirth">
 			</div>
 			<div class="mb-3">
 				<label for="dni" class="form-label">DNI</label>
@@ -28,23 +28,5 @@
 
 </body>
 
-
-<script>
-	console.log("Hola");
-
-	async function request() {
-		// always try using const rather than let
-		const response = await fetch("http://localhost:8080/api/clients");
-
-		if (response.ok) {
-			const json = response.json();
-			console.log(json);
-		} else {
-			console.log("HTTP response not ok");
-		}
-	}
-
-	request();
-</script>
 
 <section class="content-footer" th:replace="component/footer.html"></section>

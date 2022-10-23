@@ -2,7 +2,9 @@
 
 
 <body>
-	<h1 class="text-center mb-5">Mostrar clientes</h1>
+	<h1 class="text-center my-5">Mostrar clientes</h1>
+
+	<p class="text-center text-danger h3 mb-5" id="ms_not_client"></p>
 
 	<table class="table table-hover align-middle">
 		<thead class="table-dark align-middle">
@@ -28,109 +30,123 @@
 
 
 <script>
-	console.log("Hola");
 
-	//zona.innerHTML = "Hola";
-	const consumoApi = async() => {
-		await fetch("http://localhost:8080/api/clients")
-
-			.then(result => result.json())
-			.then(data => {
-
-				//LIMPIAMOS LA TABLA SI CONTIENE ALGÚN ELEMENTO
-				const zonaTabla = document.getElementsByTagName("tbody")[0];
-				while(zonaTabla.hasChildNodes()){
-					zonaTabla.removeChild(zonaTabla.firstChild);
-				}
-
-				data.forEach(n => {
-					//ASIGNO VALORES EN CADA ITERACCIÓN
-					let id = n.id;
-					let name = n.name;
-					let lastname = n.lastname;
-					let birth = n.dateBirth;
-					let dni = n.dni;
-
-					//CREO FILA 
-					const dataRow = document.createElement("tr");
-
-					//CREO ETIQUETAS QUE CONTENDRÁN LOS DATOS
-					const idArea = document.createElement("th");
-					const nameArea = document.createElement("td");
-					const lastnameArea = document.createElement("td");
-					const birthArea = document.createElement("td");
-					const dniArea = document.createElement("td");
-					const accionArea = document.createElement("td");
+	const bodyTable = document.getElementsByTagName("tbody")[0];
+	const noClient = document.getElementById("ms_not_client");
 
 
+	const consumoApi = async () => {
 
-					//ASIGNO ATRIBUTOS A LAS AREAS OPORTUNAS
-					idArea.setAttribute("scope", "row");
-					accionArea.setAttribute("class", "accion");
-					accionArea.setAttribute("id", `${id}`);
+		const data = await fetch("http://localhost:8080/api/clients");
+		return new Promise((resolve, reject) => {
+			if (data.status == 200) {
+				resolve(data.json());
+			} else {
 
+				noClient.innerText = "No hay clientes";
 
-
-					//ASIGNO VALOR A LA CELDA
-					const idText = document.createTextNode(`${id}`);
-					const nameText = document.createTextNode(`${name}`);
-					const lastNameText = document.createTextNode(`${lastname}`);
-					const birthText = document.createTextNode(`${birth}`);
-					const dniText = document.createTextNode(`${dni}`);
-					const accionText = document.createTextNode("Eliminar");
-
-
-					//CREO BOTON DE ACCIÓN
-					const accionButton = document.createElement("button");
-					accionButton.setAttribute("value", `${id}`);
-					accionButton.setAttribute("class", "btn btn-danger");
-					accionButton.setAttribute("name", "accion");
-
-					accionButton.appendChild(accionText);
-
-					//UNO CELDA Y VALOR
-					idArea.appendChild(idText);
-					nameArea.appendChild(nameText);
-					lastnameArea.appendChild(lastNameText);
-					birthArea.appendChild(birthText);
-					dniArea.appendChild(dniText);
-					accionArea.appendChild(accionButton);
-
-					//UNO FILA Y CELDA
-					dataRow.appendChild(idArea);
-					dataRow.appendChild(nameArea);
-					dataRow.appendChild(lastnameArea);
-					dataRow.appendChild(birthArea);
-					dataRow.appendChild(dniArea);
-					dataRow.appendChild(accionArea);
-
-					//UNO FILA A CUERPO DE TABLA
-					zonaTabla.appendChild(dataRow);
-
-				})
-
-				let accionBoton = document.getElementsByName("accion");
-				accionBoton.forEach(element =>
-					element.addEventListener("click", function (e) {
-						borrarCliente(this.value);
-					}));
-
-			})
-			.catch(err => console.log(err))
+				reject(new Error('No hay clientes'));
+			}
+		})
+	}
 
 
-	};
+	async function getClient() {
 
+		//LIMPIAMOS LA TABLA SI CONTIENE ALGÚN ELEMENTO ANTES DE ELIMINAR
+		while (bodyTable.hasChildNodes()) {
+			bodyTable.removeChild(bodyTable.firstChild);
+		}
+
+		const data = await consumoApi();
+
+		try {
+			noClient.innerText = "";
+
+			data.forEach(n => {
+				//ASIGNO VALORES EN CADA ITERACCIÓN
+				let id = n.id;
+				let name = n.name;
+				let lastname = n.lastname;
+				let birth = n.dateBirth;
+				let dni = n.dni;
+
+				//CREO FILA 
+				const dataRow = document.createElement("tr");
+
+				//CREO ETIQUETAS QUE CONTENDRÁN LOS DATOS
+				const idArea = document.createElement("th");
+				const nameArea = document.createElement("td");
+				const lastnameArea = document.createElement("td");
+				const birthArea = document.createElement("td");
+				const dniArea = document.createElement("td");
+				const accionArea = document.createElement("td");
+
+				//ASIGNO ATRIBUTOS A LAS AREAS OPORTUNAS
+				idArea.setAttribute("scope", "row");
+				accionArea.setAttribute("class", "accion");
+				accionArea.setAttribute("id", `${id}`);
+
+				//ASIGNO VALOR A LA CELDA
+				const idText = document.createTextNode(`${id}`);
+				const nameText = document.createTextNode(`${name}`);
+				const lastNameText = document.createTextNode(`${lastname}`);
+				const birthText = document.createTextNode(`${birth}`);
+				const dniText = document.createTextNode(`${dni}`);
+				const accionText = document.createTextNode("Eliminar");
+
+				//CREO BOTON DE ACCIÓN
+				const accionButton = document.createElement("button");
+				accionButton.setAttribute("value", `${id}`);
+				accionButton.setAttribute("class", "btn btn-danger");
+				accionButton.setAttribute("name", "accion");
+
+				accionButton.appendChild(accionText);
+
+				//UNO CELDA Y VALOR
+				idArea.appendChild(idText);
+				nameArea.appendChild(nameText);
+				lastnameArea.appendChild(lastNameText);
+				birthArea.appendChild(birthText);
+				dniArea.appendChild(dniText);
+				accionArea.appendChild(accionButton);
+
+				//UNO FILA Y CELDA
+				dataRow.appendChild(idArea);
+				dataRow.appendChild(nameArea);
+				dataRow.appendChild(lastnameArea);
+				dataRow.appendChild(birthArea);
+				dataRow.appendChild(dniArea);
+				dataRow.appendChild(accionArea);
+
+				//UNO FILA A CUERPO DE TABLA
+				bodyTable.appendChild(dataRow);
+
+			});
+
+			const accionBoton = document.getElementsByName("accion");
+
+			accionBoton.forEach(element =>
+				element.addEventListener("click", function (e) {
+					borrarCliente(this.value);
+				}));
+		} catch (err) {
+			console.log(err.message);
+		}
+
+
+	}
 
 	//LLAMO A LA API
-	consumoApi();
+	getClient();
 
 	//FUNCIÓN PARA BORRAR CLIENTE QUE QUERAMOS, SE LE PASA EL ID
-	const borrarCliente = async(id) => {
-		const result = await fetch("http://localhost:8080/api/clients/"+id, {method:'DELETE'})
-		
-		if(result.status ==204){
-			consumoApi();
+	const borrarCliente = async (id) => {
+
+		const result = await fetch("http://localhost:8080/api/clients/" + id, {method: 'DELETE'})
+
+		if (result.status == 204) {
+			getClient();
 		}
 	};
 

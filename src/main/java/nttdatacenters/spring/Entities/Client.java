@@ -38,7 +38,7 @@ public class Client {
 	@Column(name="LASTNAME")
 	private String lastname;
 	
-	@DateTimeFormat(style = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="BIRTH", nullable=true)
 	private LocalDate dateBirth;
 	
