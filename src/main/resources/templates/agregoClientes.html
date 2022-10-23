@@ -1,6 +1,7 @@
 <section class="content-header" th:replace="component/header.html"></section>
 
 <body>
+
 	<h1 class="text-center">Crear cliente</h1>
 	<div class="container">
 		<form method="POST" th:object="${client}" th:action="@{/clientes/create}">

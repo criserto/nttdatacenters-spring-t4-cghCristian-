@@ -34,7 +34,7 @@ public class ClientControllerRest {
 
 	// OBTENER TODOS LOS LAPTOS
 	@CrossOrigin
-	@ApiOperation("Obtener todos los clientes")
+	@ApiOperation(value="Obtener todos los clientes", notes = "Obtenemos una lista de clientes en el caso de que tengamos clientes registrados")
 	@GetMapping("/api/clients")
 	public ResponseEntity<List<Client>> findAll() {
 
@@ -63,21 +63,23 @@ public class ClientControllerRest {
 	}
 
 	// CREAR CLIENT
-	@ApiOperation("Crear una Client, hay que pasar un JSON para ello, el ID debe ser null o no existir")
+	@ApiOperation(value= "Crear cliente", notes="Crear una Client, hay que pasar un JSON para ello, el ID debe ser null, el DNI no puede ser null ni ser distinto de 9 dígitos alfanúmericos y no debe de estar registrado")
 	@PostMapping("/api/clients")
-	public ResponseEntity<Client> create(@RequestBody Client client, @RequestHeader HttpHeaders headers) {
+	public ResponseEntity<Client> create(@ApiParam("Tipo de parámetro en JSON") @RequestBody Client client, @RequestHeader HttpHeaders headers) {
 
-		log.info("[ClientControllerRest - create] Crear cliente" + client.toString());
 
 		if (client.getId() != null || client.getDni() == null || client.getDni().length() != 9 || clientRepository.existsByDni(client.getDni())) {
+			log.info("[ClientControllerRest - create] No se ha creado el cliente " + client.toString());
+
 			return ResponseEntity.badRequest().build();
 		}
+		log.info("[ClientControllerRest - create] Crear cliente" + client.toString());
 
 		return ResponseEntity.ok(clientRepository.save(client));
 	}
 
 	// ACTUALIZAR CLIENT
-	@ApiOperation("Actualizar una Client, se debe añadir el ID al cuerpo de la petición")
+	@ApiOperation(value="Actualizar una Client", notes="Se debe añadir el ID al cuerpo de la petición")
 	@PutMapping("/api/clients")
 	public ResponseEntity<Client> update(@ApiParam("Tipo de parámetro en JSON") @RequestBody Client client) {
 
