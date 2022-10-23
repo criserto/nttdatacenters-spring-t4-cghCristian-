@@ -24,90 +24,103 @@
 </body>
 
 <script>
-
+	
+	//NÚMERO DE PARÁMETROS DE NUESTRO OBJETO CLIENT
+	const attObjetoClient = 5;
+	
 	const buttomSubmit = document.querySelector(".enviar");
 
 	const zonaInserto = document.getElementById("zonaInsertar");
 
 
-	buttomSubmit.addEventListener("click", function () {
-		const id = document.querySelector(".id");
+	buttomSubmit.addEventListener("click", () => {
+		const id = document.querySelector(".id").value;
+		getClient(id);
 
-		const consumoApi = () => {
+	});
 
-			fetch("/api/clients/" + id.value)
+	const consumoApi = async (id) => {
 
-				.then(result => result.json())
-				.then(data => {
+		const data = await fetch("/api/clients/" + id)
+		return new Promise((resolve, reject) => {
 
-					console.log(Object.keys(data).length);
+			if (data.status == 200) {
+				resolve(data.json());
+			} else {
+				zonaInserto.innerHTML = "<h1 class='text-center text-danger'>No se encuentra clientes con ese ID</h1>"
+				reject(new Error('No se encuentra cliente con ese ID'))
+			}
+		})
+	}
 
-					//SI ID NO ES MAYOR QUE 0 NO PINTO NADA
-					if (id.value > 0) {
-						zonaInserto.innerHTML = '<table class="table"><thead><tr><th scope="col">ID</th><th scope="col">NOMBRE</th><th scope="col">APELLIDOS</th><th scope="col">FECHA NACIMIENTO</th><th scope="col">DNI</th></tr></thead><tbody><div id="isertarAqui"></div></tbody></table>';
+	async function getClient(idClient) {
 
+		const data = await consumoApi(idClient);
 
-						const zonaTabla = document.getElementsByTagName("tbody")[0];
+		//SI EL OBJETO QUE RECIBIMOS TIENE EL MISMO NÚMERO DE ATRIBUTOS QUE EL OBJETO CLIENT LO PINTAMOS
 
-						//ASIGNO VALORES EN CADA ITERACCIÓN
-						let id = data.id;
-						let name = data.name;
-						let lastname = data.lastname;
-						let birth = data.dateBirth;
-						let dni = data.dni;
+		if (Object.keys(data).length === attObjetoClient) {
 
-						//CREO FILA 
-						const dataRow = document.createElement("tr");
+			zonaInserto.innerHTML = '<table class="table"><thead><tr><th scope="col">ID</th><th scope="col">NOMBRE</th><th scope="col">APELLIDOS</th><th scope="col">FECHA NACIMIENTO</th><th scope="col">DNI</th></tr></thead><tbody></tbody></table>';
 
-						//CREO ETIQUETAS QUE CONTENDRÁN LOS DATOS
-						const idArea = document.createElement("th");
-						const nameArea = document.createElement("td");
-						const lastnameArea = document.createElement("td");
-						const birthArea = document.createElement("td");
-						const dniArea = document.createElement("td");
+			const zonaTabla = document.getElementsByTagName("tbody")[0];
 
-						//ASIGNO ATRIBUTOS A LAS AREAS OPORTUNAS
-						idArea.setAttribute("scope", "row");
+			//ASIGNO VALORES EN CADA ITERACCIÓN
+			const id = data.id;
+			const name = data.name;
+			const lastname = data.lastname;
+			const birth = data.dateBirth;
+			const dni = data.dni;
 
-						//ASIGNO VALOR A LA CELDA
-						const idText = document.createTextNode(`${id}`);
-						const nameText = document.createTextNode(`${name}`);
-						const lastNameText = document.createTextNode(`${lastname}`);
-						const birthText = document.createTextNode(`${birth}`);
-						const dniText = document.createTextNode(`${dni}`);
+			//CREO FILA 
+			const dataRow = document.createElement("tr");
 
-						//UNO CELDA Y VALOR
-						idArea.appendChild(idText);
-						nameArea.appendChild(nameText);
-						lastnameArea.appendChild(lastNameText);
-						birthArea.appendChild(birthText);
-						dniArea.appendChild(dniText);
+			//CREO ETIQUETAS QUE CONTENDRÁN LOS DATOS
+			const idArea = document.createElement("th");
+			const nameArea = document.createElement("td");
+			const lastnameArea = document.createElement("td");
+			const birthArea = document.createElement("td");
+			const dniArea = document.createElement("td");
 
-						//UNO FILA Y CELDA
-						dataRow.appendChild(idArea);
-						dataRow.appendChild(nameArea);
-						dataRow.appendChild(lastnameArea);
-						dataRow.appendChild(birthArea);
-						dataRow.appendChild(dniArea);
+			//ASIGNO ATRIBUTOS A LAS AREAS OPORTUNAS
+			idArea.setAttribute("scope", "row");
 
-						//UNO FILA A CUERPO DE TABLA
-						zonaTabla.appendChild(dataRow);
-					} else {
-						zonaInserto.innerHTML = "<h1 class='text-center text-danger'>No se encuentra clientes con ese ID</h1>"
-					}
+			//ASIGNO VALOR A LA CELDA
+			const idText = document.createTextNode(`${id}`);
+			const nameText = document.createTextNode(`${name}`);
+			const lastNameText = document.createTextNode(`${lastname}`);
+			const birthText = document.createTextNode(`${birth}`);
+			const dniText = document.createTextNode(`${dni}`);
 
-				})
-				.catch(err => {
-					zonaInserto.innerHTML = "<h1 class='text-center text-danger'>No se encuentra clientes con ese ID</h1>"
-					console.log(err);
-				})
+			//UNO CELDA Y VALOR
+			idArea.appendChild(idText);
+			nameArea.appendChild(nameText);
+			lastnameArea.appendChild(lastNameText);
+			birthArea.appendChild(birthText);
+			dniArea.appendChild(dniText);
 
+			//UNO FILA Y CELDA
+			dataRow.appendChild(idArea);
+			dataRow.appendChild(nameArea);
+			dataRow.appendChild(lastnameArea);
+			dataRow.appendChild(birthArea);
+			dataRow.appendChild(dniArea);
 
+			//UNO FILA A CUERPO DE TABLA
+			zonaTabla.appendChild(dataRow);
+		} else {
+
+			//ELIMINAMOS TABLA SI NO RECOGEMOS ELEMENTO
+			while (zonaInserto.hasChildNodes()) {
+				zonaInserto.removeChild(zonaInserto.firstChild);
+			}
+
+			zonaInserto.innerHTML = "<h1 class='text-center text-danger'>No se encuentra clientes con ese ID</h1>"
 		}
 
 
-		consumoApi();
-	})
+
+	}
 
 </script>
 

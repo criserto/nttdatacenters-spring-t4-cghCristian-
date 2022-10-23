@@ -32,7 +32,7 @@ public class ClientControllerRest {
 
 	private final Logger log = LoggerFactory.getLogger(ClientControllerRest.class);
 
-	// OBTENER TODOS LOS LAPTOS
+	// OBTENER TODOS LOS CLIENTES
 	@CrossOrigin
 	@ApiOperation(value="Obtener todos los clientes", notes = "Obtenemos una lista de clientes en el caso de que tengamos clientes registrados")
 	@GetMapping("/api/clients")
