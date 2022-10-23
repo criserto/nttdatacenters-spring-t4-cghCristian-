@@ -48,7 +48,7 @@ public class ClientController {
     	
     	
 
-        if(result.hasErrors()) {
+        if(result.hasErrors() || clientRepository.existsByDni(client.getDni())) {
             result.getFieldErrors().forEach(n->{
             	 log.info("[Cotroller Vista - /clientes/create] Error al crear cliente " + n.getDefaultMessage());
             });
