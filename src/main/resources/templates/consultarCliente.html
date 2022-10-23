@@ -2,23 +2,25 @@
 
 
 <body>
+	<div class="container-fluid">
 
-	<h1 class="text-center">Consultar cliente</h1>
+		<h1 class="text-center mt-5">Consultar cliente</h1>
 
-	<div id="zonaInsertar" class="text-center">
+		<div id="zonaInsertar" class="text-center">
 
-	</div>
-
-	<div class="container">
-		<div class="mb-3">
-			<label for="id" class="form-label">ID Cliente</label>
-			<input name="id" class="form-control id" id="id">
 		</div>
 
-		<button type="submit" class="btn btn-primary enviar">Enviar</button>
-	</div>
+		<div class="container">
+			<div class="mb-3">
+				<label for="id" class="form-label">ID Cliente</label>
+				<input name="id" class="form-control id" id="id">
+			</div>
 
-	<p class="text-center">Volver al ménu principal <a href="../menu">aquí</a></p>
+			<button type="submit" class="btn btn-primary enviar">Enviar</button>
+		</div>
+
+		<p class="text-center">Volver al ménu principal <a href="../menu">aquí</a></p>
+	</div>
 </body>
 
 <script>
@@ -37,11 +39,11 @@
 
 				.then(result => result.json())
 				.then(data => {
-					
+
 					console.log(Object.keys(data).length);
 
 					//SI ID NO ES MAYOR QUE 0 NO PINTO NADA
-					if (id.value>0) {
+					if (id.value > 0) {
 						zonaInserto.innerHTML = '<table class="table"><thead><tr><th scope="col">ID</th><th scope="col">NOMBRE</th><th scope="col">APELLIDOS</th><th scope="col">FECHA NACIMIENTO</th><th scope="col">DNI</th></tr></thead><tbody><div id="isertarAqui"></div></tbody></table>';
 
 
@@ -103,7 +105,7 @@
 
 		}
 
-		
+
 		consumoApi();
 	})
 

@@ -2,30 +2,32 @@
 
 <body>
 
-	<h1 class="text-center">Crear cliente</h1>
-	<div class="container">
-		<form method="POST" th:object="${client}" th:action="@{/clientes/create}">
-			<div class="mb-3">
-				<label for="name" class="form-label">Nombre</label>
-				<input name="name" class="form-control" id="name">
-			</div>
-			<div class="mb-3">
-				<label for="lastname" class="form-label">Apellidos</label>
-				<input type="text" name="lastname" class="form-control" id="lastname">
-			</div>
-			<div class="mb-3">
-				<label for="datebirth" class="form-label">Fecha de nacimiento</label>
-				<input type="date" name="dateBirth" class="form-control" id="datebirth">
-			</div>
-			<div class="mb-3">
-				<label for="dni" class="form-label">DNI</label>
-				<input type="text" name="dni" class="form-control" id="dni">
-			</div>
-			<button type="submit" class="btn btn-primary">Enviar</button>
-		</form>
-	</div>
+	<div class="container-fluid">
+		<h1 class="text-center mt-5">Crear cliente</h1>
+		<div class="container">
+			<form method="POST" th:object="${client}" th:action="@{/clientes/create}">
+				<div class="mb-3">
+					<label for="name" class="form-label">Nombre</label>
+					<input name="name" class="form-control" id="name">
+				</div>
+				<div class="mb-3">
+					<label for="lastname" class="form-label">Apellidos</label>
+					<input type="text" name="lastname" class="form-control" id="lastname">
+				</div>
+				<div class="mb-3">
+					<label for="datebirth" class="form-label">Fecha de nacimiento</label>
+					<input type="date" name="dateBirth" class="form-control" id="datebirth">
+				</div>
+				<div class="mb-3">
+					<label for="dni" class="form-label">DNI</label>
+					<input type="text" name="dni" class="form-control" id="dni">
+				</div>
+				<button type="submit" class="btn btn-primary">Enviar</button>
+			</form>
+		</div>
 
-	<p class="text-center mt-5">Volver al ménu principal <a href="../menu">aquí</a></p>
+		<p class="text-center mt-5">Volver al ménu principal <a href="../menu">aquí</a></p>
+	</div>
 
 </body>
 
