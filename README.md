@@ -6,6 +6,8 @@ Ejercicio T4/T5 Spring
    </p>
 <h1 align="center">*VERSIÓN ADAPTADA DE LA T3*</h1>
 
+<p>He querido personalizar un poco la idea del ejercicio con el fin de poder mostraros que puedo ser polivalente, tanto con el front (consumo de api, construir elementos de forma dinámica) como con el back (creación de apis, entidades...).</p>
+
 <h2>🚀 Tecnologías usadas:</h2>
 
 * Java +8
