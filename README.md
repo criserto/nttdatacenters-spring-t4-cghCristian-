@@ -18,13 +18,10 @@ Ejercicio T4/T5 Spring
 
 <h2>🆒 Extras:</h2>
 
-* He utilizado tanto Thymeleaf para la creación de un nuevo cliente como JavaScript consumiendo nuestra propia API.
+* Thymeleaf para la creación de un nuevo cliente.
+* JavaScript consumiendo nuestra propia API para la generación de los clientes almacenados y eliminación de cada uno por acción de botón.
 * Se agrega la colección de postman para importar y realizar consultas a la API
 * Generación de documentación de la API con Swagger accendiendo a la URL -> http://localhost:8080/swagger-ui/
-
-<h2>:hammer: Errores encontrados:</h2>
-
-* Thymeleaf parece que no se comporta bien con LocalDate, la única forma de crear un usuario mediante el controlador pasa por dejar ese campo a null.
 
 <h3><i>Resumen de ejercicio t4 propuesto:</i></h3>
 
