@@ -15,12 +15,13 @@ Ejercicio T4/T5 Spring
 * H2
 * Swagger
 * JavaScript
+* BindingResult
 * Thymeleaf
 * Consumo de API con postman
 
 <h2>🆒 Extras:</h2>
 
-* Thymeleaf para la creación de un nuevo cliente.
+* Thymeleaf para la creación de un nuevo cliente, se valida con BindingResult, si se localiza un error se muestra en el log y se carga nuevamente el formulario de registro.
 * JavaScript consumiendo nuestra propia API para la generación de los clientes almacenados y eliminación de cada uno por acción de botón.
 * Se agrega la colección de postman para importar y realizar consultas a la API
 * Generación de documentación de la API con Swagger accendiendo a la URL -> http://localhost:8080/swagger-ui/
