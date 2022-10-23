@@ -25,9 +25,6 @@
 
 <script>
 	
-	//NÚMERO DE PARÁMETROS DE NUESTRO OBJETO CLIENT
-	const attObjetoClient = 5;
-	
 	const buttomSubmit = document.querySelector(".enviar");
 
 	const zonaInserto = document.getElementById("zonaInsertar");
@@ -57,9 +54,10 @@
 
 		const data = await consumoApi(idClient);
 
-		//SI EL OBJETO QUE RECIBIMOS TIENE EL MISMO NÚMERO DE ATRIBUTOS QUE EL OBJETO CLIENT LO PINTAMOS
-
-		if (Object.keys(data).length === attObjetoClient) {
+		//ASIGNO UN VALOR POR DEFECTO SI NO HEMOS AÑADIDO NINGÚN VALOR EN EL INPUT DE BUSQUEDA
+		idClient = idClient>0 ? idClient : null;
+		
+		if (idClient!=null) {
 
 			zonaInserto.innerHTML = '<table class="table"><thead><tr><th scope="col">ID</th><th scope="col">NOMBRE</th><th scope="col">APELLIDOS</th><th scope="col">FECHA NACIMIENTO</th><th scope="col">DNI</th></tr></thead><tbody></tbody></table>';
 
